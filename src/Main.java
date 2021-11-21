@@ -5,6 +5,7 @@ public class Main {
         while(x<=10){
             System.out.println("Soy "+x);
             x++;
+            //jorge escribio esto
         }
     }
 }
