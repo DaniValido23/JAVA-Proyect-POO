@@ -1,11 +1,15 @@
 package main;
 import javax.swing.JFrame;
-import java.awt.*;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import Graphics.Assets;
 
 public class Window extends JFrame implements Runnable{
 
-    public static final int WIDTH = 800, HEIGHT = 600;
+    public static final int WIDTH = 1400, HEIGHT = 1000;
     private Canvas canvas;
     private Thread thread;
     private boolean runnig=false;
@@ -36,9 +40,9 @@ public class Window extends JFrame implements Runnable{
     public static void main(String[] args){
         new Window().start();
     }
-    int x=0;
+
     private void update(){
-    x++;
+
     }
 
     private void draw(){
@@ -50,14 +54,19 @@ public class Window extends JFrame implements Runnable{
         }
         graphics=bs.getDrawGraphics();
         /*****************************/
-        graphics.clearRect(0,0,getWidth(),getHeight());
         graphics.setColor(Color.BLACK);
-        graphics.drawString(""+AVERAGEFPS, 10, 10);
+        graphics.fillRect(0,0,getWidth(),getHeight());
+        graphics.drawImage(Assets.player1,0,0,null);
+
         /*****************************/
         graphics.dispose();
         bs.show();
 
     }
+    private void init(){
+        Assets.init();
+    }
+
 
     @Override
     public void run() {
@@ -66,7 +75,7 @@ public class Window extends JFrame implements Runnable{
         long lastTime = System.nanoTime();
         int frames = 0;
         long time = 0;
-
+        init();
         while(runnig){
             now = System.nanoTime();
             delta += (now - lastTime)/TARGETTIME;
