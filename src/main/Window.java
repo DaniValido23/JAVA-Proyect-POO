@@ -1,18 +1,17 @@
 package main;
-import javax.swing.JFrame;
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
 import Graphics.Assets;
+import States.GameState;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferStrategy;
 
 public class Window extends JFrame implements Runnable{
 
     public static final int WIDTH = 1400, HEIGHT = 1000;
     private Canvas canvas;
     private Thread thread;
-    private boolean runnig=false;
+    private boolean running=false;
     private BufferStrategy bs;
     private Graphics graphics;
 
@@ -20,6 +19,8 @@ public class Window extends JFrame implements Runnable{
     private double TARGETTIME = 1000000000/FPS;
     private double delta = 0;
     private int AVERAGEFPS = FPS;
+
+    private GameState gameState;
 
     public Window(){
         setTitle("Defensores supremos");
@@ -32,8 +33,9 @@ public class Window extends JFrame implements Runnable{
         canvas.setPreferredSize(new Dimension(getWidth(), getHeight()));
         canvas.setMaximumSize(new Dimension(getWidth(), getHeight()));
         canvas.setMinimumSize(new Dimension(getWidth(), getHeight()));
-        add(canvas);
         canvas.setFocusable(true);
+        
+        add(canvas);
 
     }
 
@@ -42,7 +44,7 @@ public class Window extends JFrame implements Runnable{
     }
 
     private void update(){
-
+        gameState.update();
     }
 
     private void draw(){
@@ -56,7 +58,8 @@ public class Window extends JFrame implements Runnable{
         /*****************************/
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0,0,getWidth(),getHeight());
-        graphics.drawImage(Assets.player1,0,0,null);
+        gameState.draw(graphics);
+        graphics.drawString(""+AVERAGEFPS, 10, 20);
 
         /*****************************/
         graphics.dispose();
@@ -65,6 +68,7 @@ public class Window extends JFrame implements Runnable{
     }
     private void init(){
         Assets.init();
+        gameState = new GameState();
     }
 
 
@@ -76,7 +80,7 @@ public class Window extends JFrame implements Runnable{
         int frames = 0;
         long time = 0;
         init();
-        while(runnig){
+        while(running){
             now = System.nanoTime();
             delta += (now - lastTime)/TARGETTIME;
             time += (now - lastTime);
@@ -100,13 +104,13 @@ public class Window extends JFrame implements Runnable{
     private void start(){
         thread = new Thread(this);
         thread.start();
-        runnig=true;
+        running=true;
     }
 
     private void stop(){
         try {
             thread.join();
-            runnig=false;
+            running=false;
         }catch(InterruptedException e){
             e.printStackTrace();
         }
