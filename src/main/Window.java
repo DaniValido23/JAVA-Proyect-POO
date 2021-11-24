@@ -1,5 +1,6 @@
 package main;
 import Graphics.Assets;
+import Input.KeyBoards;
 import States.GameState;
 
 import javax.swing.*;
@@ -21,6 +22,7 @@ public class Window extends JFrame implements Runnable{
     private int AVERAGEFPS = FPS;
 
     private GameState gameState;
+    private KeyBoards KeyBoards;
 
     public Window(){
         setTitle("Defensores supremos");
@@ -29,14 +31,17 @@ public class Window extends JFrame implements Runnable{
         setResizable(false);
         setLocationRelativeTo(null);
         setVisible(true);
+
         canvas=new Canvas();
+        KeyBoards = new KeyBoards();
+
         canvas.setPreferredSize(new Dimension(getWidth(), getHeight()));
         canvas.setMaximumSize(new Dimension(getWidth(), getHeight()));
         canvas.setMinimumSize(new Dimension(getWidth(), getHeight()));
         canvas.setFocusable(true);
         
         add(canvas);
-
+        canvas.addKeyListener(KeyBoards);
     }
 
     public static void main(String[] args){
@@ -44,6 +49,7 @@ public class Window extends JFrame implements Runnable{
     }
 
     private void update(){
+        KeyBoards.update();
         gameState.update();
     }
 

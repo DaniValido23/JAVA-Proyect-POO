@@ -15,6 +15,7 @@ public class GameState {
     }
 
     public void update(){
+        player1.update();
 
     }
 

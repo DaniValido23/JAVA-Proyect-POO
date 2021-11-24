@@ -1,5 +1,6 @@
 package gameObjects;
 
+import Input.KeyBoards;
 import math.Vector2D;
 
 import java.awt.*;
@@ -13,6 +14,14 @@ public class Player extends GameObject{
 
     @Override
     public void update() {
+        if(KeyBoards.RIGHT)
+            position.setX(position.getX()+2);
+        if(KeyBoards.LEFT)
+            position.setX(position.getX()-2);
+        if(KeyBoards.UP)
+            position.setY(position.getY()-2);
+        if(KeyBoards.DOWN)
+            position.setY(position.getY()+2);
 
     }
 
