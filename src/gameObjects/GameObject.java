@@ -8,10 +8,14 @@ import java.awt.image.BufferedImage;
 public abstract class GameObject {
     protected BufferedImage texture;
     protected Vector2D position;
+    private double at;
 
     public GameObject(Vector2D position, BufferedImage texture){
         this.position = position;
         this.texture = texture;
+    }
+
+    public GameObject(Vector2D position, int texture) {
     }
 
     public abstract void update();
