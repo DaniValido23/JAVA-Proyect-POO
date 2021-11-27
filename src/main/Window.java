@@ -53,6 +53,11 @@ public class Window extends JFrame implements Runnable{
         gameState.update();
     }
 
+    private void update2(){
+        KeyBoards.update();
+        gameState.update();
+    }
+
     private void draw(){
         bs=canvas.getBufferStrategy();
 

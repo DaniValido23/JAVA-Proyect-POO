@@ -20,6 +20,8 @@ public abstract class GameObject {
 
     public abstract void update();
 
+    public abstract void update2();
+
     public abstract void draw(Graphics graphics);
 
     public Vector2D getPosition() {

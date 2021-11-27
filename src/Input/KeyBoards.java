@@ -2,7 +2,6 @@ package Input;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.security.Key;
 
 public class KeyBoards implements KeyListener {
 
@@ -25,6 +24,15 @@ public class KeyBoards implements KeyListener {
         SHOOT=keys[KeyEvent.VK_O];
 
     }
+
+    public void update2(){
+        UP=keys[KeyEvent.VK_UP];
+        LEFT=keys[KeyEvent.VK_LEFT];
+        RIGHT=keys[KeyEvent.VK_RIGHT];
+        DOWN=keys[KeyEvent.VK_DOWN];
+        SHOOT=keys[KeyEvent.VK_L];
+    }
+
     @Override
     public void keyPressed(KeyEvent e) {
         keys[e.getKeyCode()]=true;
